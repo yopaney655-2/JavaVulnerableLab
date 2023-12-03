@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cysecurity.cspf.jvl.model.DBConnect;
 import org.json.JSONObject;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -44,8 +45,8 @@ public class EmailCheck extends HttpServlet {
                 if(con!=null && !con.isClosed())
                 {
                     ResultSet rs=null;
-                    Statement stmt = con.createStatement();  
-                    rs=stmt.executeQuery("select * from users where email='"+email+"'");
+                    PreparedStatement stmt = con.prepareStatement("select * from users where email='"+"?"+"'");  
+                    rs=stmt.executeQuery();
                     if (rs.next()) 
                     {  
                      json.put("available", "1"); 
