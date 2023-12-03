@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.cysecurity.cspf.jvl.model.HashMe;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -113,8 +114,9 @@ public class Install extends HttpServlet {
                       if(con!=null && !con.isClosed())
                         {
                             //Database creation
-                             Statement stmt = con.createStatement();  
-                             stmt.executeUpdate("DROP DATABASE IF EXISTS "+dbname);
+                             PreparedStatement stmt = con.prepareStatement("DROP DATABASE IF EXISTS "+"?");  
+                            stmt.setString(1, dbname);
+                             stmt.executeUpdate();
                              
                              stmt.executeUpdate("CREATE DATABASE "+dbname);
                              con.close();
