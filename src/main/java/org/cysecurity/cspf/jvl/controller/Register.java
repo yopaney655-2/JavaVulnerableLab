@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.cysecurity.cspf.jvl.model.DBConnect;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -54,8 +55,8 @@ public class Register extends HttpServlet {
                     if(con!=null && !con.isClosed())
                                {
                                   
-                                   Statement stmt = con.createStatement();  
-                                  stmt.executeUpdate("INSERT into users(username, password, email, About,avatar,privilege,secretquestion,secret) values ('"+user+"','"+pass+"','"+email+"','"+about+"','default.jpg','user',1,'"+secret+"')");
+                                   PreparedStatement stmt = con.prepareStatement("INSERT into users(username, password, email, About,avatar,privilege,secretquestion,secret) values ('"+"?"+"','"+"?"+"','"+"?"+"','"+"?"+"','default.jpg','user',1,'"+secret+"')");  
+                                  stmt.executeUpdate();
                                        stmt.executeUpdate("INSERT into UserMessages(recipient, sender, subject, msg) values ('"+user+"','admin','Hi','Hi<br/> This is admin of this page. <br/> Welcome to Our Forum')");
              
                                     response.sendRedirect("index.jsp");
